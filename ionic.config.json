@@ -1,0 +1,7 @@
+{
+  "name": "unitecloud",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
