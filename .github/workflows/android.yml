@@ -5,11 +5,14 @@ on:
   push:
     branches:
       - master
+      - Actions_Android
+
+  workflow_dispatch:
 
 jobs:
   build:
     name: Build APK
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     # TODO: add the default directory - COMMENT IF IT'S NOT IN SUBFOLDER
     # defaults:
     #   run:
