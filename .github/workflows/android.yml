@@ -27,9 +27,9 @@ jobs:
       - name: Setup java
         uses: actions/setup-java@v3
         with:
+          java-version: "17"
           distribution: "jdk"
-          java-version: "11"
-
+          
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
