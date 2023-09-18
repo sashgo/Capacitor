@@ -1,18 +1,14 @@
-    
 name: Build Android
 run-name: Creating Production Ready Android App 🚀
 on:
   push:
     branches:
-      - master
       - Actions_Android
-
-  workflow_dispatch:
 
 jobs:
   build:
     name: Build APK
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     # TODO: add the default directory - COMMENT IF IT'S NOT IN SUBFOLDER
     # defaults:
     #   run:
@@ -22,15 +18,14 @@ jobs:
         uses: actions/checkout@v3
         # TODO: add your branch to checkout
         with:
-          ref: Actions_Android
+          ref: master
 
       - name: Setup java
         uses: actions/setup-java@v3
         with:
-          java-version: "17"
-          distribution: "jdk"
-          java-package: "jdk"
-          
+          distribution: "zulu"
+          java-version: "11"
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
