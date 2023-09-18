@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v3
         # TODO: add your branch to checkout
         with:
-          ref: master
+          ref: Actions_Android
 
       - name: Setup java
         uses: actions/setup-java@v3
