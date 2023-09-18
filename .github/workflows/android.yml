@@ -12,7 +12,7 @@ on:
 jobs:
   build:
     name: Build APK
-    runs-on: macos-latest
+    runs-on: windows-latest
     # TODO: add the default directory - COMMENT IF IT'S NOT IN SUBFOLDER
     # defaults:
     #   run:
