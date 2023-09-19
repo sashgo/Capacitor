@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - Actions_Android
+  workflow_dispatch:
 
 jobs:
   build:
