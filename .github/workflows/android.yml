@@ -57,14 +57,15 @@ jobs:
       - name: Build app bundle
         run: cd android && ./gradlew bundle && ./gradlew assembleDebug
 
-      - name: Extract Android signing key from env
-        run: |
-          echo "${{ secrets.RELEASE_KEYSTORE }}" > android/release.jks.base64
-          base64 -d android/release.jks.base64 > android/release.decrypted.jks
+      # - name: Extract Android signing key from env
+      #   run: |
+      #     echo "${{ secrets.RELEASE_KEYSTORE }}" > android/release.jks.base64
+      #     base64 -d android/release.jks.base64 > android/release.decrypted.jks
 
       - name: Sign dev build
-        run: jarsigner -keystore android/release.decrypted.jks -storepass "${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" -signedjar ./android/app/build/outputs/bundle/release/app-release-signed.aab ./android/app/build/outputs/bundle/release/app-release.aab release
-
+        # run: jarsigner -keystore android/release.decrypted.jks -storepass "${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" -signedjar ./android/app/build/outputs/bundle/release/app-release-signed.aab ./android/app/build/outputs/bundle/release/app-release.aab release
+        run: npx cap build android --androidreleasetype=APK --keystorealias="${{ secrets.RELEASE_KEYSTORE_ALIAS }}" --keystorealiaspass="${{ secrets.RELEASE_KEYSTORE_ALIAS_PASSWORD }}" --keystorepass="${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" --keystorepath="./android/keystore/capacitor.keystore"
+        
       - name: Check folder content of android output
         run: ls ./android/app/build/outputs/bundle/release
 
