@@ -1,10 +1,10 @@
-    
 name: Build Android
 run-name: Creating Production Ready Android App 🚀
 on:
   push:
     branches:
-      - master
+      - Actions_Android
+  workflow_dispatch:
 
 jobs:
   build:
@@ -19,13 +19,13 @@ jobs:
         uses: actions/checkout@v3
         # TODO: add your branch to checkout
         with:
-          ref: master
+          ref: Actions_Android
 
       - name: Setup java
         uses: actions/setup-java@v3
         with:
-          distribution: "jdk"
-          java-version: "11"
+          distribution: "zulu"
+          java-version: "17"
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -41,6 +41,9 @@ jobs:
       - name: Add android folder if not present
         run: if [ ! -d "./android" ]; then npx cap add android; fi
 
+      - name: Capacitor sync
+        run: npx cap sync
+
       - name: Capacitor update
         run: npx cap update
 
@@ -54,27 +57,36 @@ jobs:
       - name: Build app bundle
         run: cd android && ./gradlew bundle && ./gradlew assembleDebug
 
-      - name: Extract Android signing key from env
-        run: |
-          echo "${{ secrets.RELEASE_KEYSTORE }}" > android/release.jks.base64
-          base64 -d android/release.jks.base64 > android/release.decrypted.jks
+      # - name: Extract Android signing key from env
+      #   run: |
+      #     echo "${{ secrets.RELEASE_KEYSTORE }}" > android/release.jks.base64
+      #     base64 -d android/release.jks.base64 > android/release.decrypted.jks
 
       - name: Sign dev build
-        run: jarsigner -keystore android/release.decrypted.jks -storepass "${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" -signedjar ./android/app/build/outputs/bundle/release/app-release-signed.aab ./android/app/build/outputs/bundle/release/app-release.aab release
+        run: npx cap build android --androidreleasetype=APK --keystorealias="${{ secrets.RELEASE_KEYSTORE_ALIAS }}" --keystorealiaspass="${{ secrets.RELEASE_KEYSTORE_ALIAS_PASSWORD }}" --keystorepass="${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" --keystorepath="keystore/capacitor.keystore"
 
-      - name: Check folder content of android output
-        run: ls ./android/app/build/outputs/bundle/release
-
-      - name: Set Tag
-        id: current-datetime
-        run: echo "CURRENT_DATETIME=$(date +'%Y-%m-%d-%H_%M_%S%z')" >> "$GITHUB_OUTPUT"
-
-      - name: Build Release
-        shell: bash
-        run: |
-          hub release create ${{ steps.current-datetime.outputs.CURRENT_DATETIME }} \
-          -m ${{ steps.current-datetime.outputs.CURRENT_DATETIME }} \
-          -a ./android/app/build/outputs/bundle/release/app-release-signed.aab \
-          -a ./android/app/build/outputs/apk/debug/app-debug.apk
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      - name: Distribute to AppCenter
+        # You may pin to the exact commit or the version.
+        # uses: wzieba/AppCenter-Github-Action@70e33d4842b97b381833ad5c9c93a562b39d5d9f
+        uses: wzieba/AppCenter-Github-Action@v1.3.4
+        with:
+          # App name followed by username e.g. wzieba/Sample-App
+          appName: sashgo/Capacitor
+          # Upload token - you can get one from appcenter.ms/settings
+          token: ${{ secrets.APP_CENTER_TOKEN }}
+          # Distribution group
+          group: Mobile
+          # Artefact to upload (.apk or .ipa)
+          file: /home/runner/work/Capacitor/Capacitor/android/app/build/outputs/apk/release/app-release-signed.apk
+          # # Build version parameter required for .zip, .msi, .pkg and .dmg files
+          # buildVersion: # optional
+          # # Build number parameter required for macOS .pkg and .dmg files
+          # buildNumber: # optional
+          # # Release notes visible on release page
+          # releaseNotes: # optional
+          # # Generate release notes based on the latest git commit
+          # gitReleaseNotes: # optional
+          # # If true, send an email notification to the distribution group
+          # notifyTesters: # optional
+          # # If true, shows additional information from the action execution
+          # debug: # optional
