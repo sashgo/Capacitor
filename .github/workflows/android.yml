@@ -67,25 +67,25 @@ jobs:
         run: npx cap build android --androidreleasetype=APK --keystorealias="${{ secrets.RELEASE_KEYSTORE_ALIAS }}" --keystorealiaspass="${{ secrets.RELEASE_KEYSTORE_ALIAS_PASSWORD }}" --keystorepass="${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" --keystorepath="keystore/capacitor.keystore"
 
       - name: Distribute to AppCenter
-        # uses: grndvl1/appcenter-distribute-action@master
+        uses: sashgo/capacitor@actions_android
         with:
           args: stores publish --file .android/app/build/outputs/apk/release/app-release-signed.apk --store Production --app sashgo/Capacitor
         env:
           APPCENTER_ACCESS_TOKEN: ${{ secrets.APP_CENTER_TOKEN }}
         
-      - name: Check folder content of android output
-        run: ls ./android/app/build/outputs/bundle/release
+      # - name: Check folder content of android output
+      #   run: ls ./android/app/build/outputs/bundle/release
 
-      - name: Set Tag
-        id: current-datetime
-        run: echo "CURRENT_DATETIME=$(date +'%Y-%m-%d-%H_%M_%S%z')" >> "$GITHUB_OUTPUT"
+      # - name: Set Tag
+      #   id: current-datetime
+      #   run: echo "CURRENT_DATETIME=$(date +'%Y-%m-%d-%H_%M_%S%z')" >> "$GITHUB_OUTPUT"
 
-      - name: Build Release
-        shell: bash
-        run: |
-          hub release create ${{ steps.current-datetime.outputs.CURRENT_DATETIME }} \
-          -m ${{ steps.current-datetime.outputs.CURRENT_DATETIME }} \
-          -a ./android/app/build/outputs/bundle/release/app-release-signed.apk \
-          -a ./android/app/build/outputs/apk/debug/app-debug.apk
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      # - name: Build Release
+      #   shell: bash
+      #   run: |
+      #     hub release create ${{ steps.current-datetime.outputs.CURRENT_DATETIME }} \
+      #     -m ${{ steps.current-datetime.outputs.CURRENT_DATETIME }} \
+      #     -a ./android/app/build/outputs/bundle/release/app-release-signed.apk \
+      #     -a ./android/app/build/outputs/apk/debug/app-debug.apk
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
