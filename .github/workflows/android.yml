@@ -63,15 +63,7 @@ jobs:
       #     base64 -d android/release.jks.base64 > android/release.decrypted.jks
 
       - name: Sign dev build
-        # run: jarsigner -keystore android/release.decrypted.jks -storepass "${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" -signedjar ./android/app/build/outputs/bundle/release/app-release-signed.aab ./android/app/build/outputs/bundle/release/app-release.aab release
         run: npx cap build android --androidreleasetype=APK --keystorealias="${{ secrets.RELEASE_KEYSTORE_ALIAS }}" --keystorealiaspass="${{ secrets.RELEASE_KEYSTORE_ALIAS_PASSWORD }}" --keystorepass="${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" --keystorepath="keystore/capacitor.keystore"
-
-      # - name: Distribute to AppCenter
-      #   uses: grndvl1/appcenter-distribute-action@master
-      #   with:
-      #     args: stores publish --file .android/app/build/outputs/apk/release/app-release-signed.apk --store Production --app sashgo/Capacitor
-      #   env:
-      #     APPCENTER_ACCESS_TOKEN: ${{ secrets.APP_CENTER_TOKEN }}
 
       - name: Distribute to AppCenter
         # You may pin to the exact commit or the version.
@@ -83,7 +75,7 @@ jobs:
           # Upload token - you can get one from appcenter.ms/settings
           token: ${{ secrets.APP_CENTER_TOKEN }}
           # Distribution group
-          group: 061973f2-65b0-454a-aad2-f0d92e608abd
+          # group: 061973f2-65b0-454a-aad2-f0d92e608abd
           # Artefact to upload (.apk or .ipa)
           file: /home/runner/work/Capacitor/Capacitor/android/app/build/outputs/apk/release/app-release-signed.apk
           # # Build version parameter required for .zip, .msi, .pkg and .dmg files
@@ -98,21 +90,3 @@ jobs:
           # notifyTesters: # optional
           # # If true, shows additional information from the action execution
           # debug: # optional
-
-        
-      # - name: Check folder content of android output
-      #   run: ls ./android/app/build/outputs/bundle/release
-
-      # - name: Set Tag
-      #   id: current-datetime
-      #   run: echo "CURRENT_DATETIME=$(date +'%Y-%m-%d-%H_%M_%S%z')" >> "$GITHUB_OUTPUT"
-
-      # - name: Build Release
-      #   shell: bash
-      #   run: |
-      #     hub release create ${{ steps.current-datetime.outputs.CURRENT_DATETIME }} \
-      #     -m ${{ steps.current-datetime.outputs.CURRENT_DATETIME }} \
-      #     -a ./android/app/build/outputs/bundle/release/app-release-signed.apk \
-      #     -a ./android/app/build/outputs/apk/debug/app-debug.apk
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
