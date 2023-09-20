@@ -75,7 +75,7 @@ jobs:
           # Upload token - you can get one from appcenter.ms/settings
           token: ${{ secrets.APP_CENTER_TOKEN }}
           # Distribution group
-          # group: 061973f2-65b0-454a-aad2-f0d92e608abd
+          group: Mobile
           # Artefact to upload (.apk or .ipa)
           file: /home/runner/work/Capacitor/Capacitor/android/app/build/outputs/apk/release/app-release-signed.apk
           # # Build version parameter required for .zip, .msi, .pkg and .dmg files
