@@ -67,7 +67,7 @@ jobs:
         run: npx cap build android --androidreleasetype=APK --keystorealias="${{ secrets.RELEASE_KEYSTORE_ALIAS }}" --keystorealiaspass="${{ secrets.RELEASE_KEYSTORE_ALIAS_PASSWORD }}" --keystorepass="${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" --keystorepath="keystore/capacitor.keystore"
 
       - name: Distribute to AppCenter
-        uses: sashgo/capacitor@actions_android
+        uses: grndvl1/appcenter-distribute-action@master
         with:
           args: stores publish --file .android/app/build/outputs/apk/release/app-release-signed.apk --store Production --app sashgo/Capacitor
         env:
