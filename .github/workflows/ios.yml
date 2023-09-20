@@ -15,3 +15,25 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: Actions_ios
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19.x
+          
+      - name: Create Build Folder
+        run: npm run build
+
+      - name: Add ios folder if not present
+        run: if [ ! -d "./ios" ]; then npx cap add ios; fi
+
+      - name: Capacitor sync
+        run: npx cap sync
+
+      - name: Capacitor update
+        run: npx cap update
+
+      - name: Capacitor copy
+        run: npx cap copy
+
+        
