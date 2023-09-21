@@ -20,19 +20,25 @@ jobs:
         with:
           check-latest: true
 
-      - name: Create Build Folder
-        run: npm run build
+      - name: Build App
+        run: npx ionic build  --configuration=production && npx cap copy
 
-      - name: Add ios folder if not present
-        run: if [ ! -d "./ios" ]; then npx cap add ios; fi
+      - name: Run App
+        run: ng run app:build:production
 
-      - name: Capacitor sync
-        run: npx cap sync
+      # - name: Create Build Folder
+      #   run: npm run build
 
-      - name: Capacitor update
-        run: npx cap update
+      # - name: Add ios folder if not present
+      #   run: if [ ! -d "./ios" ]; then npx cap add ios; fi
 
-      - name: Capacitor copy
-        run: npx cap copy
+      # - name: Capacitor sync
+      #   run: npx cap sync
+
+      # - name: Capacitor update
+      #   run: npx cap update
+
+      # - name: Capacitor copy
+      #   run: npx cap copy
 
         
