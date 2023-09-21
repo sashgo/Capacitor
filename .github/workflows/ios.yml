@@ -15,10 +15,8 @@ jobs:
         with:
           ref: Actions_ios
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 19.x
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.8.1
           
       - name: Create Build Folder
         run: npm run build
