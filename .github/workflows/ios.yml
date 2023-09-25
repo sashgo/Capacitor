@@ -2,6 +2,8 @@ name: Build iOS
 run-name: Creating Production Ready iOS App 🚀
 on:
   push:
+      branches:
+      - Actions_ios
   workflow_dispatch:
 
 jobs:
