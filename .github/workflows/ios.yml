@@ -79,7 +79,7 @@ jobs:
         uses: hectorguerrini/build-ios-action@v1.0.4
         with:
           # Project path
-          project-path: ""
+          project-path: ".ios/App/App"
           # Base64 encoded p12 file (key + cert)
           p12-base64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
           # Base64 encoded mobileprovision file
@@ -89,7 +89,7 @@ jobs:
           # Team id
           team-id: TUGFNJHXEQ
           # # Workspace path
-          workspace-path: App.xcworkspace # optional, default is 
+          workspace-path: ".ios/App/App" # optional, default is 
           # Options app-store, ad-hoc, package, enterprise, development, or developer-id
           # export-method: development # optional, default is development
           # For example, Debug, Release
