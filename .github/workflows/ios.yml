@@ -71,7 +71,7 @@ jobs:
           # # Workspace path
           workspace-path: ./ios/App/App.xcworkspace # optional, default is 
           # Options app-store, ad-hoc, package, enterprise, development, or developer-id
-          # export-method: package # optional, default is development
+          export-method: ad-hoc # optional, default is development
           # For example, Debug, Release
           configuration: Release # optional, default is Release
           # Certificate password
