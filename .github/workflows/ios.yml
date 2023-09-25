@@ -89,7 +89,7 @@ jobs:
           # Team id
           team-id: TUGFNJHXEQ
           # # Workspace path
-          workspace-path: ./ios/App/App.xcodeproj # optional, default is 
+          workspace-path: ./ios/App/App # optional, default is 
           # Options app-store, ad-hoc, package, enterprise, development, or developer-id
           # export-method: development # optional, default is development
           # For example, Debug, Release
