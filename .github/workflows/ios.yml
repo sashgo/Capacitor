@@ -49,7 +49,8 @@ jobs:
           check-latest: true
 
       - name: Build App
-        run: npx ionic build  --configuration=production && npx cap copy
+        run: npx cap build ios
+        # run: npx ionic build  --configuration=production && npx cap copy
 
       # - name: Run App
       #   run: ng run app:build:production
