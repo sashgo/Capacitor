@@ -16,7 +16,7 @@ jobs:
           ref: Actions_ios
 
       - name: Update xcode version to 15.0
-      - uses: maxim-lobanov/setup-xcode@v1
+      - uses: maxim-lobanov/setup-xcode@v1.6.0
         with:
           xcode-version: '15.0-beta'
       
