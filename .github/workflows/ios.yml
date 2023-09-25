@@ -48,6 +48,9 @@ jobs:
         with:
           check-latest: true
 
+      - name: install dependencies
+        run: npm ci
+
       - name: Build App
         run: npm run build
         # run: npx ionic build  --configuration=production && npx cap copy
