@@ -103,7 +103,7 @@ jobs:
           # # Targets to disable automatic code signing. Input targets separated by ,. For example, 'MyApp,YourApp'.
           # disable-targets: # optional, default is 
           # # Boolean to tell if `pod install` should be run during build.
-          # build-pods: # optional
+          build-pods: pod install # optional
           # # The path to the Podfile.
           # pods-path: # optional, default is Podfile
 
