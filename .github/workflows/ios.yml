@@ -51,26 +51,25 @@ jobs:
       - name: install dependencies
         run: npm ci
 
-      - name: Build App
+      - name: Create Build Folder
         run: npm run build
-        # run: npx ionic build  --configuration=production && npx cap copy
+
+
 
       # - name: Run App
       #   run: ng run app:build:production
 
-      # - name: Create Build Folder
-      #   run: npm run build
 
-      # - name: Add ios folder if not present
-      #   run: if [ ! -d "./ios" ]; then npx cap add ios; fi
+      - name: Add ios folder if not present
+        run: if [ ! -d "./ios" ]; then npx cap add ios; fi
 
-      # - name: Capacitor sync
-      #   run: npx cap sync
+      - name: Capacitor sync
+        run: npx cap sync
 
-      # - name: Capacitor update
-      #   run: npx cap update
+      - name: Capacitor update
+        run: npx cap update
 
-      # - name: Capacitor copy
-      #   run: npx cap copy
+      - name: Capacitor copy
+        run: npx cap copy
 
         
