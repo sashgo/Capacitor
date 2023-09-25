@@ -79,7 +79,7 @@ jobs:
         uses: hectorguerrini/build-ios-action@v1.0.4
         with:
           # Project path
-          project-path: App.xcodeproj
+          project-path: ""
           # Base64 encoded p12 file (key + cert)
           p12-base64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
           # Base64 encoded mobileprovision file
