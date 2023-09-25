@@ -72,4 +72,9 @@ jobs:
       - name: Capacitor copy
         run: npx cap copy
 
-        
+      - name: Build project
+        run: xcodebuild -workspace './ios/App/App.xcworkspace' -scheme App -destination generic/platform=iOS -archivePath App.xcarchive archive
+
+      - name: 🍻 Assemble IPA
+        run: xcodebuild archive -archivePath App.xcarchive -exportArchive -exportOptionsPlist ./archive.plist -exportPath output -allowProvisioningUpdates
+
