@@ -85,7 +85,7 @@ jobs:
           # Base64 encoded mobileprovision file
           mobileprovision-base64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
           # For example, iOS Distribution
-          code-signing-identity: Apple Development
+          code-signing-identity: iOS Developer
           # Team id
           team-id: TUGFNJHXEQ
           # # Workspace path
