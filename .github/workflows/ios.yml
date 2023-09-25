@@ -43,15 +43,13 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
-          
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.8.1
+        with:
+          check-latest: true
 
-      # - name: Setup Node.js environment
-      #   uses: actions/setup-node@v3.8.1
-      #   with:
-      #     check-latest: true
-
-      # - name: Build App
-      #   run: npx ionic build  --configuration=production && npx cap copy
+      - name: Build App
+        run: npx ionic build  --configuration=production && npx cap copy
 
       # - name: Run App
       #   run: ng run app:build:production
