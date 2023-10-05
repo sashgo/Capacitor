@@ -55,13 +55,8 @@ jobs:
       - name: Build app bundle
         run: cd android && ./gradlew bundle && ./gradlew assembleDebug
 
-      # - name: Extract Android signing key from env
-      #   run: |
-      #     echo "${{ secrets.RELEASE_KEYSTORE }}" > android/release.jks.base64
-      #     base64 -d android/release.jks.base64 > android/release.decrypted.jks
-
       - name: Sign dev build
-        run: npx cap build android --androidreleasetype=APK --keystorealias="${{ secrets.RELEASE_KEYSTORE_ALIAS }}" --keystorealiaspass="${{ secrets.RELEASE_KEYSTORE_ALIAS_PASSWORD }}" --keystorepass="${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" --keystorepath="keystore/capacitor.keystore"
+        run: npx cap build android --androidreleasetype=APK --keystorealias="${{ secrets.RELEASE_KEYSTORE_ALIAS }}" --keystorealiaspass="${{ secrets.RELEASE_KEYSTORE_ALIAS_PASSWORD }}" --keystorepass="${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" --keystorepath="$keystore/{{ secrets.RELEASE_KEYSTORE }}.keystore"
 
       - name: Distribute to AppCenter
         # You may pin to the exact commit or the version.
