@@ -4,7 +4,7 @@ android {
     namespace "ionic.unitecloud"
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "com.3shape.unitecloud"
+        applicationId "com.threeshape.unitecloud"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
