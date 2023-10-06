@@ -70,7 +70,7 @@ jobs:
           # Distribution group
           group: Mobile
           # Artefact to upload (.apk or .ipa)
-          file: /home/runner/work/Capacitor/Capacitor/android/app/build/outputs/apk/release/app-release-signed.aab
+          file: /home/runner/work/Capacitor/Capacitor/android/app/build/outputs/bundle/release/app-release-signed.aab
           # # Build version parameter required for .zip, .msi, .pkg and .dmg files
           # buildVersion: # optional
           # # Build number parameter required for macOS .pkg and .dmg files
