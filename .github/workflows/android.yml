@@ -48,8 +48,8 @@ jobs:
       # - name: Generate icons and splash screen to android folder 
       #   run:  if [ -d "./resources" ]; then npm install @capacitor/assets --save-dev && npx capacitor-assets generate --android; fi
         
-      - name: Build app bundle
-        run: cd android && ./gradlew bundle && ./gradlew assembleDebug
+      # - name: Build app bundle
+      #   run: cd android && ./gradlew bundle && ./gradlew assembleDebug
 
       - name: Sign dev build
         run: npx cap build android --androidreleasetype=AAB --keystorealias="${{ secrets.RELEASE_KEYSTORE_ALIAS }}" --keystorealiaspass="${{ secrets.RELEASE_KEYSTORE_ALIAS_PASSWORD }}" --keystorepass="${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" --keystorepath="${{ secrets.RELEASE_KEYSTORE }}"
