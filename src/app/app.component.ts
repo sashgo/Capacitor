@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+import { App } from '@capacitor/app';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +11,21 @@ import { IonicModule } from '@ionic/angular';
   imports: [IonicModule],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(private router: Router, private zone: NgZone) {
+    this.initializeApp();
+  }
+
+  initializeApp() {
+    App.addListener('appUrlOpen', (event) => {
+        this.zone.run(() => {
+            var path = event.url.split("mobileapps.3shape.com").pop();
+
+            console.log('Slug:', path);
+
+            if (path) {
+                this.router.navigateByUrl(path);
+            }
+        });
+    });
+  }
 }

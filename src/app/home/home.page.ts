@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+import { ActivatedRoute, Router} from '@angular/router'
 
 @Component({
   selector: 'app-home',
@@ -8,6 +9,16 @@ import { IonicModule } from '@ionic/angular';
   standalone: true,
   imports: [IonicModule],
 })
-export class HomePage {
-  constructor() {}
+export class HomePage{
+  token:string|null = "";
+  
+  constructor(    
+    private route: ActivatedRoute,
+    ) { 
+      this.route.queryParams.subscribe(params => {
+        this.token = params['code'];
+    });
+    }
 }
+
+

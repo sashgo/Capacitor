@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'ionic.unitecloud',
+  appId: 'com.3shape.Communicate',
   appName: 'unitecloud',
   webDir: 'www',
   server: {
