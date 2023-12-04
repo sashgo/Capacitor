@@ -25,6 +25,9 @@ export class AppComponent {
             if (path) {
                 this.router.navigateByUrl(path);
             }
+            else{
+              alert(event.url);
+            }
         });
     });
   }

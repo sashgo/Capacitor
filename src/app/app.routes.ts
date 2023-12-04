@@ -17,5 +17,9 @@ export const routes: Routes = [
   {
     path: 'android/communicate/auth',
     loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
+  },
+  {
+    path: 'ios/communicate/auth',
+    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
   }
 ];
