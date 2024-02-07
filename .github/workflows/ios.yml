@@ -18,7 +18,7 @@ jobs:
           ref: ''
 
       - name: Setup Xcode version
-        run: xcode-select -s /Applications/Xcode.app
+        run: sudo xcode-select -s /Applications/Xcode.app
 
       - name: Print Xcode path
         run: xcode-select -p
