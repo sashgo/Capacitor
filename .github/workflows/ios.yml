@@ -18,11 +18,10 @@ jobs:
           ref: ''
 
       - name: Setup Xcode version
-        # You may pin to the exact commit or the version.
-        uses: maxim-lobanov/setup-xcode@v1.6.0
-        with:
-          # Version of Xcode to use
-          xcode-version: latest # optional, default is latest
+        run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: Print Xcode path
+        run: xcode-select -p
           
       - name: Setup Node.js environment
         uses: actions/setup-node@v3.8.1
@@ -51,82 +50,89 @@ jobs:
       # - name: Capacitor copy
       #   run: npx cap copy
 
-      - name: Update fastlane
-        run: gem install fastlane
+      # - name: Update fastlane
+      #   run: gem install fastlane
+
+      # - name: Buil iOS
+      #   run: npx cap build ios
+
+      - name: build archive
+        run: xcodebuild -workspace ./ios/App/App.xcworkspace -scheme App
         
-      - name: iOS Build/Release Action
-        # You may pin to the exact commit or the version.
-        uses: hectorguerrini/build-ios-action@v1.0.4
-        with:
-          # Project path
-          project-path: ./ios/App/App.xcodeproj
-          # Base64 encoded p12 file (key + cert)
-          p12-base64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
-          # Base64 encoded mobileprovision file
-          mobileprovision-base64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
-          # For example, iOS Distribution
-          code-signing-identity: Apple Distribution
-          # Team id
-          team-id: TUGFNJHXEQ
-          # # Workspace path
-          workspace-path: ./ios/App/App.xcworkspace # optional, default is 
-          # Options app-store, ad-hoc, package, enterprise, development, or developer-id
-          export-method: ad-hoc # optional, default is development
-          # For example, Debug, Release
-          configuration: Release # optional, default is Release
-          # Certificate password
-          certificate-password: ${{ secrets.P12_PASSWORD }} # optional, default is 
-          # # Output path of ipa
-          # output-path: # optional, default is output.ipa
-          # # Scheme
-          # scheme: # optional, default is 
-          # # Targets to disable automatic code signing. Input targets separated by ,. For example, 'MyApp,YourApp'.
-          # disable-targets: # optional, default is 
-          # # Boolean to tell if `pod install` should be run during build.
-          # build-pods: # optional
-          # # The path to the Podfile.
-          # pods-path: # optional, default is Podfile
+        
+  #     - name: iOS Build/Release Action
+  #       # You may pin to the exact commit or the version.
+  #       uses: hectorguerrini/build-ios-action@v1.0.4
+  #       with:
+  #         # Project path
+  #         project-path: ./ios/App/App.xcodeproj
+  #         # Base64 encoded p12 file (key + cert)
+  #         p12-base64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+  #         # Base64 encoded mobileprovision file
+  #         mobileprovision-base64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
+  #         # For example, iOS Distribution
+  #         code-signing-identity: Apple Distribution
+  #         # Team id
+  #         team-id: TUGFNJHXEQ
+  #         # # Workspace path
+  #         workspace-path: ./ios/App/App.xcworkspace # optional, default is 
+  #         # Options app-store, ad-hoc, package, enterprise, development, or developer-id
+  #         export-method: ad-hoc # optional, default is development
+  #         # For example, Debug, Release
+  #         configuration: Release # optional, default is Release
+  #         # Certificate password
+  #         certificate-password: ${{ secrets.P12_PASSWORD }} # optional, default is 
+  #         # # Output path of ipa
+  #         # output-path: # optional, default is output.ipa
+  #         # # Scheme
+  #         # scheme: # optional, default is 
+  #         # # Targets to disable automatic code signing. Input targets separated by ,. For example, 'MyApp,YourApp'.
+  #         # disable-targets: # optional, default is 
+  #         # # Boolean to tell if `pod install` should be run during build.
+  #         # build-pods: # optional
+  #         # # The path to the Podfile.
+  #         # pods-path: # optional, default is Podfile
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: output.ipa
-          path: /Users/runner/work/Capacitor/Capacitor/output.ipa # Path to your IPA file will usually be 
+  #     - name: Upload artifact
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: output.ipa
+  #         path: /Users/runner/work/Capacitor/Capacitor/output.ipa # Path to your IPA file will usually be 
 
-  distribute-ios:
-    needs: build_ios # This is important
-    runs-on: ubuntu-latest
+  # distribute-ios:
+  #   needs: build_ios # This is important
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/download-artifact@v2
-        with:
-          name: output.ipa
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/download-artifact@v2
+  #       with:
+  #         name: output.ipa
 
-      - name: Distribute to AppCenter
-        # You may pin to the exact commit or the version.
-        # uses: wzieba/AppCenter-Github-Action@70e33d4842b97b381833ad5c9c93a562b39d5d9f
-        uses: wzieba/AppCenter-Github-Action@v1.3.4
-        with:
-          # App name followed by username e.g. wzieba/Sample-App
-          appName: sashgo/Capacitor-ios
-          # Upload token - you can get one from appcenter.ms/settings
-          token: ${{ secrets.APP_CENTER_TOKEN_IOS }}
-          # Distribution group
-          group: Mobile
-          # Artefact to upload (.ipa)
-          file: output.ipa
-          # # Build version parameter required for .zip, .msi, .pkg and .dmg files
-          # buildVersion: # optional
-          # # Build number parameter required for macOS .pkg and .dmg files
-          # buildNumber: # optional
-          # # Release notes visible on release page
-          # releaseNotes: # optional
-          # # Generate release notes based on the latest git commit
-          # gitReleaseNotes: # optional
-          # # If true, send an email notification to the distribution group
-          # notifyTesters: # optional
-          # # If true, shows additional information from the action execution
+  #     - name: Distribute to AppCenter
+  #       # You may pin to the exact commit or the version.
+  #       # uses: wzieba/AppCenter-Github-Action@70e33d4842b97b381833ad5c9c93a562b39d5d9f
+  #       uses: wzieba/AppCenter-Github-Action@v1.3.4
+  #       with:
+  #         # App name followed by username e.g. wzieba/Sample-App
+  #         appName: sashgo/Capacitor-ios
+  #         # Upload token - you can get one from appcenter.ms/settings
+  #         token: ${{ secrets.APP_CENTER_TOKEN_IOS }}
+  #         # Distribution group
+  #         group: Mobile
+  #         # Artefact to upload (.ipa)
+  #         file: output.ipa
+  #         # # Build version parameter required for .zip, .msi, .pkg and .dmg files
+  #         # buildVersion: # optional
+  #         # # Build number parameter required for macOS .pkg and .dmg files
+  #         # buildNumber: # optional
+  #         # # Release notes visible on release page
+  #         # releaseNotes: # optional
+  #         # # Generate release notes based on the latest git commit
+  #         # gitReleaseNotes: # optional
+  #         # # If true, send an email notification to the distribution group
+  #         # notifyTesters: # optional
+  #         # # If true, shows additional information from the action execution
           # debug: # optional
 
 
