@@ -57,7 +57,7 @@ jobs:
       #   run: npx cap build ios
 
       - name: build archive
-        run: xcodebuild -workspace ./Projects/Angular/Capacitor/ios/App/App.xcworkspace -scheme App
+        run: xcodebuild -workspace ./ios/App/App.xcworkspace -scheme App
         
         
   #     - name: iOS Build/Release Action
