@@ -57,14 +57,7 @@ jobs:
       #   run: npx cap build ios
 
       - name: build archive
-        run: |
-          xcodebuild -project ./ios/App/App.xcodeproj \
-          -target "App" \ 
-          # -archivePath $RUNNER_TEMP/App.xcarchive \
-          -sdk iphoneos \
-          -configuration Release \
-          -destination generic/platform=iOS \
-          clean archive 
+        run: xcodebuild -workspace ./Projects/Angular/Capacitor/ios/App/App.xcworkspace -scheme App
         
         
   #     - name: iOS Build/Release Action
