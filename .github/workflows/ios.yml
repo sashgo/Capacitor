@@ -59,8 +59,8 @@ jobs:
       - name: build archive
         run: |
           xcodebuild -project ./ios/App/App.xcodeproj \
-          -scheme "App" \ 
-          -archivePath $RUNNER_TEMP/App.xcarchive \
+          -target "App" \ 
+          # -archivePath $RUNNER_TEMP/App.xcarchive \
           -sdk iphoneos \
           -configuration Release \
           -destination generic/platform=iOS \
