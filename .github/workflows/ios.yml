@@ -50,11 +50,20 @@ jobs:
       # - name: Capacitor copy
       #   run: npx cap copy
 
-      - name: Update fastlane
-        run: gem install fastlane
+      # - name: Update fastlane
+      #   run: gem install fastlane
 
-      - name: Buil iOS
-        run: npx cap build ios
+      # - name: Buil iOS
+      #   run: npx cap build ios
+
+      - name: build archive
+        run: |
+          xcodebuild -scheme "App" \
+          -archivePath $RUNNER_TEMP/App.xcarchive \
+          -sdk iphoneos \
+          -configuration Release \
+          -destination generic/platform=iOS \
+          clean archive 
         
         
   #     - name: iOS Build/Release Action
