@@ -17,6 +17,9 @@ jobs:
         with:
           ref: ''
 
+      - name: check all Xcode versions
+        run: sudo ls -1 /Applications | grep "Xcode"
+
       - name: check Xcode version
         run: /usr/bin/xcodebuild -version
 
