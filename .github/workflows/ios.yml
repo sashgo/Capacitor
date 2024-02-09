@@ -90,7 +90,9 @@ jobs:
       
 
       - name: build archive
-        run: xcodebuild -workspace ./ios/App/App.xcworkspace -scheme App
+        run: xcodebuild -workspace ./ios/App/App.xcworkspace -scheme App -sdk iphoneos -configuration Release -destination generic/platform=iOS
+
+
         
         
   #     - name: iOS Build/Release Action
