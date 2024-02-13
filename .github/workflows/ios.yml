@@ -24,9 +24,9 @@ jobs:
         run: /usr/bin/xcodebuild -version
         
       - name: Setup Node.js environment
-        uses: actions/setup-node@v3.8.1
+      - uses: actions/setup-node@v3
         with:
-          check-latest: true
+          node-version: ${{vars.NODE_VERSION}}
 
       - name: install dependencies
         run: npm ci
