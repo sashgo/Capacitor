@@ -15,6 +15,18 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v3
 
+      - name: Check folder
+        run: ls ./src  
+        
+      - name: Download app-config
+        run: curl https://beta-unite.3shape.com/app-config.json            
+
+      - name: Download app-config and store
+        run: curl -o .src/app-config.json https://beta-unite.3shape.com/app-config.json 
+              
+      - name: Check folder
+        run: ls ./src  
+        
       - name: Setup java
         uses: actions/setup-java@v3
         with:
