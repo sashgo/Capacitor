@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Check folder
-        run: ls ./src  
+        run: ls .android  
         
       - name: Download app-config
         run: curl https://beta-unite.3shape.com/app-config.json            
