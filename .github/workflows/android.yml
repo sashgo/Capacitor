@@ -15,8 +15,19 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v3
 
+      - name: Check Fil cat
+        run: |
+          cat ${{github.workspace}}/android/app/build.gradle        
+
       - name: Check folder
-        run: ls ./android/app 
+        run: |
+          ls ${{github.workspace}}
+          ls ${{github.workspace}}/android/app
+          sed -i '' 's/versionCode.*/versionCode ${{ github.run_number }}/g' /home/runner/work/Portal.Application.CaseManagement/Portal.Application.CaseManagement/android/app/build.gradle
+
+      - name: Check Fil cat
+        run: |
+          cat ${{github.workspace}}/android/app/build.gradle 
         
       - name: Download app-config
         run: curl https://beta-unite.3shape.com/app-config.json            
