@@ -22,7 +22,7 @@ jobs:
       - name: Check folder
         run: |
           ls ${{github.workspace}}/android/app
-          sed -i '' 's/versionCode.*/versionCode ${{ github.run_number }}/g' ${{github.workspace}}/android/app/build.gradle
+          sed -i 's/versionCode.*/versionCode ${{ github.run_number }}/g' ${{github.workspace}}/android/app/build.gradle
 
       - name: Check Fil cat
         run: |
