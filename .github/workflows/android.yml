@@ -21,22 +21,15 @@ jobs:
 
     - name: Install Firebase CLI
       run: npm install -g firebase-tools
-      
-    - name: Firebase Version
-      run: firebase --version
-      
-    - name: Create GOOGLE_APPLICATION_CREDENTIALS file
-      run: |
-        echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}" > $HOME/google-credentials.json
-        echo "export GOOGLE_APPLICATION_CREDENTIALS=$HOME/google-credentials.json" >> ~/.bashrc
 
-    - name: Set environment variable
-      run: source ~/.bashrc && echo $GOOGLE_APPLICATION_CREDENTIALS
+    - name: Create GOOGLE_APPLICATION_CREDENTIALS file
+      run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}" > $HOME/google-credentials.json
 
     - name: List Firebase Projects
-      run: source ~/.bashrc && firebase projects:list
+      run: firebase projects:list
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: $HOME/google-credentials.json
 
-      
       # - name: Checkout source
       #   uses: actions/checkout@v3
 
