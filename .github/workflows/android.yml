@@ -26,9 +26,11 @@ jobs:
       - name: Set environment variable
         run: echo "GOOGLE_APPLICATION_CREDENTIALS=$HOME/google-credentials.json" >> $GITHUB_ENV
 
-      - name: Check firebase version
+      - name: Firebase project list
         run: |
           firebase projects:list
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: $HOME/google-credentials.json
       
       # - name: Checkout source
       #   uses: actions/checkout@v3
