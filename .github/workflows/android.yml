@@ -6,6 +6,10 @@ on:
       - main
   workflow_dispatch:
 
+name: CI
+
+on: [push]
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,13 +29,12 @@ jobs:
     - name: Decode Base64 JSON and Create GOOGLE_APPLICATION_CREDENTIALS file
       run: |
         echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}" | base64 --decode > $HOME/google-credentials.json
-        echo "Decoded JSON Key:" && cat $HOME/google-credentials.json
 
-    - name: Set environment variable
-      run: echo "GOOGLE_APPLICATION_CREDENTIALS=$HOME/google-credentials.json" >> $GITHUB_ENV
+    - name: Setup and Run Firebase Distribution
+      run: |
+        export GOOGLE_APPLICATION_CREDENTIALS="$HOME/google-credentials.json"
+        firebase projects:list
 
-    - name: List Firebase Projects
-      run: firebase projects:list
       env:
         GOOGLE_APPLICATION_CREDENTIALS: $HOME/google-credentials.json
 
