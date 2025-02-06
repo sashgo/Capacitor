@@ -25,8 +25,10 @@ jobs:
     - name: Create GOOGLE_APPLICATION_CREDENTIALS file
       run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}" > $HOME/google-credentials.json
 
-    - name: List Firebase Projects
-      run: firebase projects:list
+    - name: Authenticate Firebase CLI
+      run: |
+        gcloud auth activate-service-account --key-file=$HOME/google-credentials.json
+        firebase projects:list
       env:
         GOOGLE_APPLICATION_CREDENTIALS: $HOME/google-credentials.json
 
