@@ -25,9 +25,7 @@ jobs:
     - name: Decode Base64 JSON and Create GOOGLE_APPLICATION_CREDENTIALS file
       run: |
         echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}" | base64 --decode > $HOME/google-credentials.json
-
-    - name: Verify JSON File
-      run: cat $HOME/google-credentials.json
+        echo "Decoded JSON Key:" && cat $HOME/google-credentials.json
 
     - name: Set environment variable
       run: echo "GOOGLE_APPLICATION_CREDENTIALS=$HOME/google-credentials.json" >> $GITHUB_ENV
