@@ -32,6 +32,9 @@ jobs:
     - name: Verify environment variable
       run: echo $GOOGLE_APPLICATION_CREDENTIALS
 
+    - name: Check contents of GOOGLE_APPLICATION_CREDENTIALS file
+      run: cat $HOME/google-credentials.json
+
     - name: List Firebase Projects
       run: firebase projects:list
       env:
