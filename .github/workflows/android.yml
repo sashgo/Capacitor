@@ -19,7 +19,17 @@ jobs:
       - name: Check firebase version
         run: |
           firebase --version
-    
+          
+      - name: Create GOOGLE_APPLICATION_CREDENTIALS file
+        run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}" > $HOME/google-credentials.json
+  
+      - name: Set environment variable
+        run: echo "GOOGLE_APPLICATION_CREDENTIALS=$HOME/google-credentials.json" >> $GITHUB_ENV
+
+      - name: Check firebase version
+        run: |
+          firebase projects:list
+      
       # - name: Checkout source
       #   uses: actions/checkout@v3
 
