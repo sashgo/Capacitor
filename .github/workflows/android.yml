@@ -8,17 +8,16 @@ on:
 
 jobs:
   build:
-    name: Build APK
     runs-on: ubuntu-latest
-    
+
     steps:
-    # - name: Checkout code
-    #   uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '20'
+        node-version: '18'
 
     - name: Install Firebase CLI
       run: npm install -g firebase-tools
@@ -32,13 +31,11 @@ jobs:
     - name: Verify environment variable
       run: echo $GOOGLE_APPLICATION_CREDENTIALS
 
-    - name: Check contents of GOOGLE_APPLICATION_CREDENTIALS file
-      run: cat $HOME/google-credentials.json
-
     - name: List Firebase Projects
       run: firebase projects:list
       env:
         GOOGLE_APPLICATION_CREDENTIALS: $HOME/google-credentials.json
+
       
       # - name: Checkout source
       #   uses: actions/checkout@v3
