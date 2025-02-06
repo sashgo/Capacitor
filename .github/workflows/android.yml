@@ -26,21 +26,15 @@ jobs:
       run: firebase --version
       
     - name: Create GOOGLE_APPLICATION_CREDENTIALS file
-      run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}" > $HOME/google-credentials.json
+      run: |
+        echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}" > $HOME/google-credentials.json
+        echo "export GOOGLE_APPLICATION_CREDENTIALS=$HOME/google-credentials.json" >> ~/.bashrc
 
     - name: Set environment variable
-      run: echo "GOOGLE_APPLICATION_CREDENTIALS=$HOME/google-credentials.json" >> $GITHUB_ENV
-
-    - name: Verify environment variable
-      run: echo $GOOGLE_APPLICATION_CREDENTIALS
-
-    - name: Check contents of GOOGLE_APPLICATION_CREDENTIALS file
-      run: cat $HOME/google-credentials.json
+      run: source ~/.bashrc && echo $GOOGLE_APPLICATION_CREDENTIALS
 
     - name: List Firebase Projects
-      run: firebase projects:list
-      env:
-        GOOGLE_APPLICATION_CREDENTIALS: $HOME/google-credentials.json
+      run: source ~/.bashrc && firebase projects:list
 
       
       # - name: Checkout source
