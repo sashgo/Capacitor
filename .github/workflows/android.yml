@@ -12,7 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source
+      - name: Install firebase
+        run: |
+          curl -sL https://firebase.tools | bash
+          
+      - name: Check firebase version
         run: |
           firebase --version
     
