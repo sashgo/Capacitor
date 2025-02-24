@@ -22,12 +22,18 @@ jobs:
         
       - name: check Xcode version
         run: /usr/bin/xcodebuild -version
-        
-      - name: check Xcode version
-        run: | 
-          xcrun
-          # xcrun iTMSTransporter
 
+      - name: check Java version
+        run: | 
+          java -version
+
+      - name: check fastlane version
+        run: | 
+          fastlane -v
+        
+      - name: install iTMSTransporter
+        run: | 
+          xcrun iTMSTransporter
         
       # - name: Setup Node.js environment
       #   uses: actions/setup-node@v4.0.2
