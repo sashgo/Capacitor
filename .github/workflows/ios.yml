@@ -25,7 +25,8 @@ jobs:
         
       - name: check Xcode version
         run: | 
-          xcrun iTMSTransporter
+          xcrun
+          # xcrun iTMSTransporter
 
         
       # - name: Setup Node.js environment
