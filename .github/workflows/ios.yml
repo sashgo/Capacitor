@@ -17,23 +17,29 @@ jobs:
         with:
           ref: ''
 
-      - name: Setup Xcode version
-        run: sudo xcode-select -s /Applications/Xcode_15.2.app
-        
-      - name: check Xcode version
-        run: /usr/bin/xcodebuild -version
+      - name: GitTools
+        # You may pin to the exact commit or the version.
+        # uses: GitTools/actions@b4372b9a14557a67171fe7292bf2f92b657c26a3
+        uses: GitTools/actions@v3.1.11
+          
 
-      - name: check Java version
-        run: | 
-          java -version
-
-      - name: check fastlane version
-        run: | 
-          fastlane -v
+      # - name: Setup Xcode version
+      #   run: sudo xcode-select -s /Applications/Xcode_15.2.app
         
-      - name: install iTMSTransporter
-        run: | 
-          xcrun iTMSTransporter
+      # - name: check Xcode version
+      #   run: /usr/bin/xcodebuild -version
+
+      # - name: check Java version
+      #   run: | 
+      #     java -version
+
+      # - name: check fastlane version
+      #   run: | 
+      #     fastlane -v
+        
+      # - name: install iTMSTransporter
+      #   run: | 
+      #     xcrun iTMSTransporter
         
       # - name: Setup Node.js environment
       #   uses: actions/setup-node@v4.0.2
