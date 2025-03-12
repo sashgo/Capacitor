@@ -17,12 +17,16 @@ jobs:
         with:
           ref: ''
 
-      - name: GitTools
-        # You may pin to the exact commit or the version.
-        # uses: GitTools/actions@b4372b9a14557a67171fe7292bf2f92b657c26a3
-        uses: GitTools/actions@v3.1.11
-          
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v3.1.11
+        with:
+          versionSpec: '6.0.0'
 
+      - name: Determine Version
+        id: version_step # step id used as reference for output values
+        uses: gittools/actions/gitversion/execute@v3.1.11
+
+          
       # - name: Setup Xcode version
       #   run: sudo xcode-select -s /Applications/Xcode_15.2.app
         
